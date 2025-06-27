@@ -116,6 +116,10 @@
   align-items: center;
   flex-direction: column;
   gap: var(--spacing-xl);
+  position: relative;
+  z-index: 3;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .project-image {

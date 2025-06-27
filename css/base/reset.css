@@ -9,6 +9,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
 }
 
 body {
@@ -47,15 +48,15 @@ textarea {
 }
 
 input:focus,
-textarea:focus,
-button:focus {
+textarea:focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
-/* Ensure mix-blend-mode works consistently */
-body,
-section,
-div {
-  isolation: auto;
+/* Specific button focus styles are handled in their respective components */
+button:focus:not(.nav-btn):not(.resume-btn):not(.mobile-menu-toggle):not(
+    .mobile-menu-close
+  ) {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }

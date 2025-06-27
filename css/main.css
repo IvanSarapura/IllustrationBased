@@ -15,7 +15,6 @@
 @import "./components/cards.css";
 @import "./components/forms.css";
 @import "./components/navigation.css";
-@import "./components/cursor.css";
 
 /* Sections */
 @import "./sections/hero.css";

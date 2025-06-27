@@ -397,14 +397,6 @@
   transition-timing-function: ease-in-out;
 }
 
-/* Cursor utilities */
-.cursor-pointer {
-  cursor: pointer;
-}
-.cursor-none {
-  cursor: none;
-}
-
 /* Select utilities */
 .select-none {
   user-select: none;

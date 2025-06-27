@@ -172,61 +172,6 @@ const projects = [
   },
 ];
 
-// Custom Cursor
-class CustomCursor {
-  constructor() {
-    this.cursor = document.getElementById("customCursor");
-    this.cursorSize = 32;
-    this.init();
-  }
-
-  init() {
-    if (!this.cursor) return;
-
-    document.addEventListener("mousemove", (e) => {
-      this.cursor.style.left = `${e.clientX - this.cursorSize / 2}px`;
-      this.cursor.style.top = `${e.clientY - this.cursorSize / 2}px`;
-    });
-
-    // Add hover effects for text elements
-    const textElements = document.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
-    textElements.forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        this.cursor.classList.add("large");
-      });
-      el.addEventListener("mouseleave", () => {
-        this.cursor.classList.remove("large");
-      });
-    });
-
-    document.body.classList.add("custom-cursor-enabled");
-
-    // Debug: Verificar que funciona en toda la página
-    this.debugMixBlendMode();
-  }
-
-  // Función para verificar que mix-blend-mode funciona globalmente
-  debugMixBlendMode() {
-    console.log("🎯 Cursor mix-blend-mode iniciado");
-    console.log(
-      "✅ El cursor debería cambiar de color automáticamente en TODA la página"
-    );
-    console.log("🔍 Verifica especialmente:");
-    console.log("  - Navbar (fondo con transparencia)");
-    console.log("  - Secciones Hero, About, Contact");
-    console.log("  - Cards de Skills y Experience");
-    console.log("  - Formulario de contacto");
-
-    // Verificar compatibilidad
-    const supportsBlend = CSS.supports("mix-blend-mode", "difference");
-    console.log(`🎨 Soporte mix-blend-mode: ${supportsBlend ? "✅" : "❌"}`);
-
-    if (!supportsBlend) {
-      console.warn("⚠️ Navegador no soporta mix-blend-mode - usando fallback");
-    }
-  }
-}
-
 // Typewriter Effect
 class TypeWriter {
   constructor(element, texts, speed = 100) {
@@ -288,27 +233,53 @@ function toggleMobileMenu() {
   mobileMenu.classList.toggle("open");
 }
 
+// Resume Button Handler
+function handleResumeClick() {
+  alert("Resume download functionality will be implemented here!");
+}
+
+// Enhanced smooth scroll with custom easing
+function smoothScrollTo(targetPosition, duration = 1200) {
+  const startPosition = window.pageYOffset;
+  const distance = targetPosition - startPosition;
+  let startTime = null;
+
+  // Easing function for smoother animation (easeInOutCubic)
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+  }
+
+  function animation(currentTime) {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1);
+
+    const ease = easeInOutCubic(progress);
+    window.scrollTo(0, startPosition + distance * ease);
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animation);
+    }
+  }
+
+  requestAnimationFrame(animation);
+}
+
 // Smooth scroll to sections with intelligent behavior
 function scrollToSection(sectionId) {
   const section = document.getElementById(sectionId);
 
   if (!section) {
-    console.warn(`⚠️ Sección "${sectionId}" no encontrada`);
     return;
   }
 
   // Special case for 'home' - always scroll to top
   if (sectionId === "home") {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    smoothScrollTo(0, 1000);
 
     // Close mobile menu if open
     const mobileMenu = document.getElementById("mobileMenu");
     mobileMenu.classList.remove("open");
-
-    console.log(`🏠 Navegando al inicio`);
     return;
   }
 
@@ -317,22 +288,14 @@ function scrollToSection(sectionId) {
 
   if (currentSection === sectionId) {
     // If already in the section, scroll to top
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    console.log(`⬆️ Ya en sección "${sectionId}", scrolling al inicio`);
+    smoothScrollTo(0, 1000);
   } else {
     // If not in the section, scroll to the section
     const offset = 20; // Reduced offset since navbar is no longer fixed
     const elementPosition = section.offsetTop;
     const offsetPosition = elementPosition - offset;
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
-    console.log(`🎯 Navegando a sección: ${sectionId}`);
+    smoothScrollTo(offsetPosition, 1200);
   }
 
   // Close mobile menu if open
@@ -479,7 +442,6 @@ function handleContactForm() {
 // Initialize everything when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize components
-  new CustomCursor();
   new Navbar();
   new ScrollAnimations();
 
@@ -497,61 +459,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize form handling
   handleContactForm();
 
-  // Debug: Log if sections are rendered
-  console.log(
-    "Skills rendered:",
-    document.querySelectorAll(".skill-card").length
-  );
-  console.log(
-    "Experience rendered:",
-    document.querySelectorAll(".experience-card").length
-  );
-  console.log(
-    "Projects rendered:",
-    document.querySelectorAll(".project-card").length
-  );
-
-  // Force visibility of skills section after a delay
-  setTimeout(() => {
-    const skillCards = document.querySelectorAll(".skill-card");
-    skillCards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add("visible");
-      }, index * 100);
-    });
-  }, 1000);
-
-  // Force visibility of experience section after a delay
-  setTimeout(() => {
-    const experienceCards = document.querySelectorAll(".experience-card");
-    experienceCards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add("visible");
-      }, index * 200);
-    });
-    console.log("Experience cards made visible:", experienceCards.length);
-  }, 1200);
-
-  // Force visibility of projects section after a delay
-  setTimeout(() => {
-    const projectCards = document.querySelectorAll(".project-card");
-    projectCards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add("visible");
-      }, index * 300);
-    });
-  }, 1500);
-
-  // Add initial animation classes
-  setTimeout(() => {
-    const elements = document.querySelectorAll(
-      ".animate-fade-in-left, .animate-fade-in-right, .animate-fade-in-down"
-    );
-    elements.forEach((el) => {
-      el.style.opacity = "1";
-      el.style.transform = "translateX(0) translateY(0)";
-    });
-  }, 500);
+  // Expose functions globally for onclick handlers
+  window.scrollToSection = scrollToSection;
+  window.handleResumeClick = handleResumeClick;
+  window.toggleMobileMenu = toggleMobileMenu;
 });
 
 // Utility function to pad numbers
@@ -571,5 +482,3 @@ function debounce(func, wait) {
     timeout = setTimeout(later, wait);
   };
 }
-
-// Scroll listener removed - navbar is no longer fixed

@@ -22,6 +22,7 @@
 .navbar-logo {
   height: 2.25rem;
   cursor: pointer;
+  outline: none;
   transition: transform var(--transition-fast);
 }
 
@@ -30,52 +31,79 @@
 }
 
 .navbar-menu {
-  display: none;
+  display: flex;
   align-items: center;
-  gap: 1.75rem;
+  gap: 1rem;
   font-weight: var(--font-weight-semibold);
   cursor: default;
 }
 
 .navbar-menu-item {
   position: relative;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.625rem 1.25rem;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
   cursor: pointer;
-  transition: transform var(--transition-fast);
+  text-transform: capitalize;
+  color: var(--text-color);
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 1100;
+  min-height: 44px;
+  min-width: 80px;
+  pointer-events: auto;
+  user-select: none;
 }
 
-.navbar-menu-item:hover {
-  transform: scale(1.1);
-}
-
-.navbar-menu-item::after {
+.nav-btn::after {
   content: "";
   position: absolute;
-  bottom: -2px;
-  left: 0;
+  bottom: 8px;
+  left: 50%;
   width: 0;
   height: 2px;
   background-color: var(--primary-color);
-  transition: width var(--transition-base);
+  transition: all var(--transition-base);
+  transform: translateX(-50%);
 }
 
-.navbar-menu-item:hover::after {
-  width: 100%;
+.nav-btn:hover::after,
+.nav-btn:focus::after,
+.nav-btn:focus-visible::after {
+  width: calc(100% - 2.5rem);
 }
 
-.navbar-menu-item button {
-  background: none;
-  border: none;
-  font-weight: inherit;
-  cursor: pointer;
-  text-transform: capitalize;
+.nav-btn:hover,
+.nav-btn:focus,
+.nav-btn:focus-visible {
+  color: var(--primary-color);
+}
+
+.nav-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.nav-btn:active {
+  transform: scale(0.98);
 }
 
 .resume-btn {
-  display: none;
+  display: inline-block;
   position: relative;
   padding: var(--spacing-sm) var(--spacing-md);
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-base);
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .resume-btn-bg {
@@ -120,9 +148,12 @@
 }
 
 .mobile-menu-toggle {
-  display: block;
+  display: none;
   font-size: var(--font-size-2xl);
   cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
   transition: transform var(--transition-fast);
 }
 
@@ -155,6 +186,9 @@
   right: var(--spacing-lg);
   font-size: var(--font-size-2xl);
   cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
 }
 
 .mobile-menu-list {
@@ -170,35 +204,128 @@
 }
 
 .mobile-menu-item {
-  border-bottom: 1px solid transparent;
-  cursor: pointer;
-  transition: transform var(--transition-fast);
+  margin-bottom: var(--spacing-sm);
 }
 
-.mobile-menu-item:hover {
-  transform: scale(1.1);
-}
-
-.mobile-menu-item button {
-  background: none;
-  border: none;
-  font-weight: inherit;
+/* Mobile Navigation Buttons */
+.mobile-nav-btn {
+  background: linear-gradient(
+    135deg,
+    var(--background-light) 0%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  border: 1.5px solid var(--border-color);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-lg);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
   cursor: pointer;
   text-transform: capitalize;
-}
-
-.mobile-resume-btn {
+  color: var(--text-color);
+  transition: all var(--transition-base);
+  width: 100%;
+  text-align: left;
   position: relative;
-  padding: var(--spacing-sm) var(--spacing-md);
+  overflow: hidden;
+}
+
+.mobile-nav-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.05),
+    transparent
+  );
+  transition: left var(--transition-slow);
+}
+
+.mobile-nav-btn:hover::before {
+  left: 100%;
+}
+
+.mobile-nav-btn:hover {
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color) 0%, #333333 100%);
+  color: white;
+  transform: translateX(8px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Resume Button */
+.mobile-resume-btn-element {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #333333 100%);
+  border: 1.5px solid var(--primary-color);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-lg);
   font-weight: var(--font-weight-semibold);
-  transition: transform var(--transition-fast);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  color: white;
+  transition: all var(--transition-base);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
 }
 
-.mobile-resume-btn:hover {
-  transform: scale(1.1);
+.mobile-resume-btn-element::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left var(--transition-slow);
 }
 
-@media (min-width: 1024px) {
+.mobile-resume-btn-element:hover::before {
+  left: 100%;
+}
+
+.mobile-resume-btn-element:hover {
+  background: linear-gradient(135deg, #333333 0%, var(--primary-color) 100%);
+  transform: translateX(8px) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-resume-btn-element svg {
+  transition: transform var(--transition-base);
+}
+
+.mobile-resume-btn-element:hover svg {
+  transform: translateX(4px);
+}
+
+/* Mobile-first approach */
+@media (max-width: 767px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .resume-btn {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
   .navbar-container {
     padding: 0 var(--spacing-6xl);
   }
