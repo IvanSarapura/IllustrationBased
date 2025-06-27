@@ -30,6 +30,8 @@
   text-align: center;
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-lg);
+  position: relative;
+  z-index: 2;
 }
 
 .skill-card:hover {
@@ -54,6 +56,10 @@
   border-radius: var(--border-radius-md);
   transition: all var(--transition-base);
   cursor: pointer;
+  position: relative;
+  z-index: 3;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .experience-card:hover {
@@ -75,6 +81,11 @@
 
 .experience-title img {
   width: 1.75rem;
+}
+
+/* Apple logo specific styling */
+.experience-title img[src*="apple.svg"] {
+  filter: brightness(0) invert(1);
 }
 
 .experience-title h3 {

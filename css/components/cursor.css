@@ -7,7 +7,7 @@
   border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: difference;
-  z-index: var(--z-dropdown);
+  z-index: 999;
   transition: transform 0.1s ease-out, width 0.2s ease, height 0.2s ease;
   transform-origin: center center;
   will-change: transform;
@@ -36,14 +36,16 @@ body.custom-cursor-enabled .project-card {
   cursor: pointer !important;
 }
 
-/* Ensure mix-blend-mode works in all sections */
+/* Ensure mix-blend-mode works in all sections and create stacking contexts */
 .hero,
 .skills,
 .about,
 .projects,
 .contact,
 .experience {
-  isolation: auto;
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
 }
 
 /* Cursor states for different elements */

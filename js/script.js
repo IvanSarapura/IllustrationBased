@@ -115,6 +115,15 @@ const experiences = [
       "At Youtube, I served as a Software Engineer, focusing on the design and implementation of backend systems for the social media giant's dynamic platform. Built real-time video processing pipelines serving 2B+ users globally. Optimized database queries reducing load times by 40% and implemented caching strategies that decreased server costs by $2M annually.",
     logo: "assets/youtube.svg",
   },
+  {
+    id: 3,
+    company: "Apple",
+    role: "Junior Software Engineer",
+    period: "Jun 2015 - Dec 2016",
+    description:
+      "Contributed to iOS app development and macOS system optimization as part of Apple's software engineering team. Developed key features for native applications, improved app performance by 15%, and collaborated with cross-functional teams to deliver seamless user experiences across Apple's ecosystem.",
+    logo: "assets/apple.svg",
+  },
 ];
 
 // Projects Data
@@ -290,7 +299,9 @@ function renderSkills() {
   skillsGrid.innerHTML = skills
     .map(
       (skill, index) => `
-        <div class="skill-card animate-on-scroll animate-delay-${index + 1}">
+        <div class="skill-card animate-on-scroll" style="animation-delay: ${
+          (index + 1) * 0.1
+        }s">
             <div class="skill-icon">${skill.icon}</div>
             <p>${skill.name}</p>
         </div>
@@ -307,9 +318,9 @@ function renderExperience() {
   experienceGrid.innerHTML = experiences
     .map(
       (exp, index) => `
-        <div class="experience-card animate-on-scroll animate-delay-${
-          index + 1
-        }">
+        <div class="experience-card animate-on-scroll" style="animation-delay: ${
+          (index + 1) * 0.2
+        }s">
             <div class="experience-header">
                 <div class="experience-title">
                     <img src="${exp.logo}" alt="${exp.company}">
@@ -334,7 +345,7 @@ function renderProjects() {
       (project, index) => `
         <div class="project-card ${
           index % 2 === 1 ? "reverse" : ""
-        } animate-on-scroll animate-delay-${index + 1}">
+        } animate-on-scroll" style="animation-delay: ${(index + 1) * 0.3}s">
             <div class="project-image">
                 <img src="${project.image}" alt="${project.title}">
             </div>
@@ -408,6 +419,37 @@ document.addEventListener("DOMContentLoaded", () => {
     "Projects rendered:",
     document.querySelectorAll(".project-card").length
   );
+
+  // Force visibility of skills section after a delay
+  setTimeout(() => {
+    const skillCards = document.querySelectorAll(".skill-card");
+    skillCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add("visible");
+      }, index * 100);
+    });
+  }, 1000);
+
+  // Force visibility of experience section after a delay
+  setTimeout(() => {
+    const experienceCards = document.querySelectorAll(".experience-card");
+    experienceCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add("visible");
+      }, index * 200);
+    });
+    console.log("Experience cards made visible:", experienceCards.length);
+  }, 1200);
+
+  // Force visibility of projects section after a delay
+  setTimeout(() => {
+    const projectCards = document.querySelectorAll(".project-card");
+    projectCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add("visible");
+      }, index * 300);
+    });
+  }, 1500);
 
   // Add initial animation classes
   setTimeout(() => {

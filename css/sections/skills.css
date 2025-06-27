@@ -1,6 +1,14 @@
 /* Skills Section */
 .skills {
   margin-top: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure skill cards are visible */
+.skills .skill-card {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .skills-content {
@@ -26,6 +34,8 @@
   width: 100%;
   place-items: center;
   row-gap: var(--spacing-lg);
+  position: relative;
+  z-index: 2;
 }
 
 /* Experience Section */
@@ -34,6 +44,9 @@
   width: 100%;
   margin: var(--spacing-xl) 0;
   padding: var(--spacing-xl) 0;
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
 }
 
 .experience-title {
@@ -53,6 +66,14 @@
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  position: relative;
+  z-index: 3;
+}
+
+/* Ensure experience cards are visible */
+.experience .experience-card {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Responsive Design */
