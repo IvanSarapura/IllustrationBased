@@ -147,6 +147,18 @@
   color: white;
 }
 
+.resume-btn:active {
+  transform: scale(0.96);
+}
+
+.resume-btn:active .resume-btn-bg {
+  transform: translate(2px, 2px);
+}
+
+.resume-btn:active .resume-btn-border {
+  transform: translate(-1px, -1px);
+}
+
 .mobile-menu-toggle {
   display: none;
   font-size: var(--font-size-2xl);

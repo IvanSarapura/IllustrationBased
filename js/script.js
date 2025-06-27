@@ -235,18 +235,151 @@ function toggleMobileMenu() {
 
 // Resume Button Handler
 function handleResumeClick() {
-  alert("Resume download functionality will be implemented here!");
+  // Add visual feedback
+  const resumeBtn = document.querySelector(".resume-btn");
+  const resumeText = document.querySelector(".resume-btn-text");
+
+  if (resumeBtn && resumeText) {
+    // Change button text temporarily
+    const originalText = resumeText.innerHTML;
+    resumeText.innerHTML = `
+      <span style="display: flex; align-items: center; gap: 0.5rem;">
+        Downloading...
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="animation: spin 1s linear infinite;">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
+          <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"/>
+        </svg>
+      </span>
+    `;
+
+    // Trigger download
+    setTimeout(() => {
+      downloadResume();
+
+      // Reset button text after download
+      setTimeout(() => {
+        resumeText.innerHTML = originalText;
+      }, 1500);
+    }, 300);
+  } else {
+    // Fallback if elements not found
+    downloadResume();
+  }
 }
 
-// Enhanced smooth scroll with custom easing
-function smoothScrollTo(targetPosition, duration = 1200) {
+// Download Resume Function
+function downloadResume() {
+  try {
+    // Create a temporary anchor element
+    const link = document.createElement("a");
+    link.href = "assets/resume.pdf";
+    link.download = "Sathish_Kumar_Resume.pdf";
+    link.target = "_blank";
+
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Show success message
+    showNotification("Resume downloaded successfully! 📄", "success");
+  } catch (error) {
+    console.error("Error downloading resume:", error);
+    showNotification("Unable to download resume. Please try again.", "error");
+  }
+}
+
+// Simple notification system
+function showNotification(message, type = "info") {
+  // Remove existing notifications
+  const existingNotification = document.querySelector(".download-notification");
+  if (existingNotification) {
+    existingNotification.remove();
+  }
+
+  // Create notification element
+  const notification = document.createElement("div");
+  notification.className = "download-notification";
+  notification.textContent = message;
+
+  // Style the notification
+  Object.assign(notification.style, {
+    position: "fixed",
+    top: "20px",
+    right: "20px",
+    padding: "12px 20px",
+    borderRadius: "8px",
+    color: "white",
+    fontSize: "14px",
+    fontWeight: "500",
+    zIndex: "10000",
+    transform: "translateX(100%)",
+    transition: "transform 0.3s ease",
+    backgroundColor:
+      type === "success" ? "#10B981" : type === "error" ? "#EF4444" : "#3B82F6",
+  });
+
+  // Add to page
+  document.body.appendChild(notification);
+
+  // Animate in
+  setTimeout(() => {
+    notification.style.transform = "translateX(0)";
+  }, 100);
+
+  // Remove after delay
+  setTimeout(() => {
+    notification.style.transform = "translateX(100%)";
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }, 3000);
+}
+
+// Prevent multiple scroll animations
+let isScrolling = false;
+
+// Ultra smooth scroll - buttery smooth animations with accessibility support
+function smoothScrollTo(targetPosition, duration = 1000) {
+  // Prevent multiple scroll animations
+  if (isScrolling) {
+    return;
+  }
+
+  // Respect user's motion preferences for accessibility
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (prefersReducedMotion) {
+    window.scrollTo(0, targetPosition);
+    return;
+  }
+
+  isScrolling = true;
+
+  // Temporarily disable CSS smooth scroll to avoid conflicts
+  const html = document.documentElement;
+  const originalScrollBehavior = html.style.scrollBehavior;
+  html.style.scrollBehavior = "auto";
+
   const startPosition = window.pageYOffset;
   const distance = targetPosition - startPosition;
+
+  // If distance is very small, use a gentler animation
+  if (Math.abs(distance) < 10) {
+    window.scrollTo(0, targetPosition);
+    html.style.scrollBehavior = originalScrollBehavior;
+    isScrolling = false;
+    return;
+  }
+
   let startTime = null;
 
-  // Easing function for smoother animation (easeInOutCubic)
-  function easeInOutCubic(t) {
-    return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+  // Ultra smooth easing function - combination of ease-in-out with custom curve
+  function easeInOutQuint(t) {
+    return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
   }
 
   function animation(currentTime) {
@@ -254,69 +387,131 @@ function smoothScrollTo(targetPosition, duration = 1200) {
     const timeElapsed = currentTime - startTime;
     const progress = Math.min(timeElapsed / duration, 1);
 
-    const ease = easeInOutCubic(progress);
-    window.scrollTo(0, startPosition + distance * ease);
+    const ease = easeInOutQuint(progress);
+    const currentPosition = startPosition + distance * ease;
 
-    if (timeElapsed < duration) {
+    // Use smoother scrollTo with rounding for pixel-perfect positioning
+    window.scrollTo(0, Math.round(currentPosition));
+
+    if (progress < 1) {
       requestAnimationFrame(animation);
+    } else {
+      // Gentle finish - ensure we end exactly at target position
+      setTimeout(() => {
+        window.scrollTo(0, targetPosition);
+        // Re-enable CSS smooth scroll after animation completes
+        html.style.scrollBehavior = originalScrollBehavior;
+        isScrolling = false;
+      }, 16); // One frame delay for smoothness
     }
   }
 
   requestAnimationFrame(animation);
 }
 
-// Smooth scroll to sections with intelligent behavior
+// Debounce scroll calls to prevent rapid clicking issues
+let scrollDebounceTimer = null;
+
+// Ultra smooth scroll to sections with adaptive timing
 function scrollToSection(sectionId) {
+  // Clear any pending scroll calls
+  if (scrollDebounceTimer) {
+    clearTimeout(scrollDebounceTimer);
+  }
+
+  // Debounce rapid clicks for smoother experience
+  scrollDebounceTimer = setTimeout(() => {
+    executeScrollToSection(sectionId);
+  }, 50);
+}
+
+function executeScrollToSection(sectionId) {
   const section = document.getElementById(sectionId);
 
   if (!section) {
     return;
   }
 
-  // Special case for 'home' - always scroll to top
-  if (sectionId === "home") {
-    smoothScrollTo(0, 1000);
-
-    // Close mobile menu if open
-    const mobileMenu = document.getElementById("mobileMenu");
+  // Close mobile menu immediately if open
+  const mobileMenu = document.getElementById("mobileMenu");
+  if (mobileMenu) {
     mobileMenu.classList.remove("open");
+  }
+
+  // Special case for 'home' - always scroll to top smoothly
+  if (sectionId === "home") {
+    smoothScrollTo(0, 800);
     return;
   }
 
-  // Check if we're already in the target section
+  // Calculate target position
+  const offset = 20;
+  const elementPosition = section.offsetTop;
+  const targetPosition = elementPosition - offset;
+  const currentPosition = window.pageYOffset;
+  const distance = Math.abs(currentPosition - targetPosition);
+
+  // Adaptive duration based on distance for ultra smooth feel
+  let duration = 1000;
+  if (distance < 300) {
+    duration = 600;
+  } else if (distance < 800) {
+    duration = 900;
+  } else if (distance > 2000) {
+    duration = 1200;
+  }
+
+  // If we're already very close, use gentle animation
+  if (distance < 50) {
+    smoothScrollTo(targetPosition, 400);
+    return;
+  }
+
+  // Check if we're already in the target section (simplified)
   const currentSection = getCurrentActiveSection();
 
   if (currentSection === sectionId) {
-    // If already in the section, scroll to top
-    smoothScrollTo(0, 1000);
+    // If already in the section, scroll to top with smooth animation
+    smoothScrollTo(0, 800);
   } else {
-    // If not in the section, scroll to the section
-    const offset = 20; // Reduced offset since navbar is no longer fixed
-    const elementPosition = section.offsetTop;
-    const offsetPosition = elementPosition - offset;
-
-    smoothScrollTo(offsetPosition, 1200);
+    // Scroll to the section with adaptive duration for smoothness
+    smoothScrollTo(targetPosition, duration);
   }
-
-  // Close mobile menu if open
-  const mobileMenu = document.getElementById("mobileMenu");
-  mobileMenu.classList.remove("open");
 }
 
-// Helper function to determine which section is currently active
-function getCurrentActiveSection() {
-  const sections = ["home", "about", "skills", "projects", "contact"];
-  const scrollPosition = window.scrollY + 50; // Reduced offset since navbar is no longer fixed
+// Optimized function to determine current active section
+let cachedSectionPositions = null;
 
-  for (let i = sections.length - 1; i >= 0; i--) {
-    const section = document.getElementById(sections[i]);
-    if (section && scrollPosition >= section.offsetTop) {
-      return sections[i];
+function getCurrentActiveSection() {
+  const scrollPosition = window.scrollY + 100;
+
+  // Cache section positions to avoid repeated DOM queries
+  if (!cachedSectionPositions) {
+    cachedSectionPositions = ["home", "about", "skills", "projects", "contact"]
+      .map((id) => {
+        const section = document.getElementById(id);
+        return section ? { id, top: section.offsetTop } : null;
+      })
+      .filter(Boolean);
+  }
+
+  // Find the current section more efficiently
+  for (let i = cachedSectionPositions.length - 1; i >= 0; i--) {
+    if (scrollPosition >= cachedSectionPositions[i].top) {
+      return cachedSectionPositions[i].id;
     }
   }
 
   return "home"; // Default to home if at the very top
 }
+
+// Clear cache when window resizes (sections might move)
+window.addEventListener(
+  "resize",
+  debounce(() => {
+    cachedSectionPositions = null;
+  }, 250)
+);
 
 // Intersection Observer for scroll animations
 class ScrollAnimations {
@@ -463,6 +658,9 @@ document.addEventListener("DOMContentLoaded", () => {
   window.scrollToSection = scrollToSection;
   window.handleResumeClick = handleResumeClick;
   window.toggleMobileMenu = toggleMobileMenu;
+
+  // Initialize ultra smooth scroll system
+  console.log("🚀 Ultra smooth scroll system initialized!");
 });
 
 // Utility function to pad numbers

@@ -517,10 +517,24 @@
           });
         }
 
-        // Backup for resume button
+        // Backup for resume button (desktop)
         const resumeBtn = document.querySelector(".resume-btn");
         if (resumeBtn) {
           resumeBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (window.handleResumeClick) {
+              window.handleResumeClick();
+            }
+          });
+        }
+
+        // Backup for resume button (mobile)
+        const mobileResumeBtn = document.querySelector(
+          ".mobile-resume-btn-element"
+        );
+        if (mobileResumeBtn) {
+          mobileResumeBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
             if (window.handleResumeClick) {
