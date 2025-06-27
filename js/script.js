@@ -278,14 +278,7 @@ class Navbar {
   }
 
   init() {
-    // Handle scroll effect
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 0) {
-        this.navbar.classList.add("shadow");
-      } else {
-        this.navbar.classList.remove("shadow");
-      }
-    });
+    // Navbar initialization - no scroll effects needed since it's no longer fixed
   }
 }
 
@@ -295,11 +288,43 @@ function toggleMobileMenu() {
   mobileMenu.classList.toggle("open");
 }
 
-// Smooth scroll to sections
+// Smooth scroll to sections with intelligent behavior
 function scrollToSection(sectionId) {
   const section = document.getElementById(sectionId);
-  if (section) {
-    const offset = 110;
+
+  if (!section) {
+    console.warn(`⚠️ Sección "${sectionId}" no encontrada`);
+    return;
+  }
+
+  // Special case for 'home' - always scroll to top
+  if (sectionId === "home") {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    // Close mobile menu if open
+    const mobileMenu = document.getElementById("mobileMenu");
+    mobileMenu.classList.remove("open");
+
+    console.log(`🏠 Navegando al inicio`);
+    return;
+  }
+
+  // Check if we're already in the target section
+  const currentSection = getCurrentActiveSection();
+
+  if (currentSection === sectionId) {
+    // If already in the section, scroll to top
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    console.log(`⬆️ Ya en sección "${sectionId}", scrolling al inicio`);
+  } else {
+    // If not in the section, scroll to the section
+    const offset = 20; // Reduced offset since navbar is no longer fixed
     const elementPosition = section.offsetTop;
     const offsetPosition = elementPosition - offset;
 
@@ -307,11 +332,27 @@ function scrollToSection(sectionId) {
       top: offsetPosition,
       behavior: "smooth",
     });
+    console.log(`🎯 Navegando a sección: ${sectionId}`);
   }
 
   // Close mobile menu if open
   const mobileMenu = document.getElementById("mobileMenu");
   mobileMenu.classList.remove("open");
+}
+
+// Helper function to determine which section is currently active
+function getCurrentActiveSection() {
+  const sections = ["home", "about", "skills", "projects", "contact"];
+  const scrollPosition = window.scrollY + 50; // Reduced offset since navbar is no longer fixed
+
+  for (let i = sections.length - 1; i >= 0; i--) {
+    const section = document.getElementById(sections[i]);
+    if (section && scrollPosition >= section.offsetTop) {
+      return sections[i];
+    }
+  }
+
+  return "home"; // Default to home if at the very top
 }
 
 // Intersection Observer for scroll animations
@@ -531,15 +572,4 @@ function debounce(func, wait) {
   };
 }
 
-// Add debounced scroll listener for navbar
-window.addEventListener(
-  "scroll",
-  debounce(() => {
-    const navbar = document.getElementById("navbar");
-    if (window.scrollY > 0) {
-      navbar.classList.add("shadow");
-    } else {
-      navbar.classList.remove("shadow");
-    }
-  }, 10)
-);
+// Scroll listener removed - navbar is no longer fixed

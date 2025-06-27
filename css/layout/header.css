@@ -1,17 +1,12 @@
 /* Header and Navigation */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  background-color: var(--background-light);
+  background-color: transparent;
   padding: var(--spacing-lg);
   z-index: var(--z-fixed);
   transition: box-shadow var(--transition-base);
-}
-
-.navbar.shadow {
-  box-shadow: var(--shadow-md);
+  cursor: default;
 }
 
 .navbar-container {
@@ -21,6 +16,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--spacing-lg);
+  cursor: default;
 }
 
 .navbar-logo {
@@ -38,6 +34,7 @@
   align-items: center;
   gap: 1.75rem;
   font-weight: var(--font-weight-semibold);
+  cursor: default;
 }
 
 .navbar-menu-item {
@@ -145,6 +142,7 @@
   transform: translateY(-100%);
   transition: transform var(--transition-base);
   z-index: var(--z-modal);
+  cursor: default;
 }
 
 .mobile-menu.open {
@@ -168,6 +166,7 @@
   height: 100%;
   gap: var(--spacing-lg);
   font-weight: var(--font-weight-semibold);
+  cursor: default;
 }
 
 .mobile-menu-item {

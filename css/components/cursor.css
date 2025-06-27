@@ -31,10 +31,12 @@ body.custom-cursor-enabled a,
 body.custom-cursor-enabled input,
 body.custom-cursor-enabled textarea,
 body.custom-cursor-enabled select,
-body.custom-cursor-enabled .navbar,
-body.custom-cursor-enabled .navbar *,
-body.custom-cursor-enabled .skill-card,
-body.custom-cursor-enabled .experience-card,
+body.custom-cursor-enabled .navbar-logo,
+body.custom-cursor-enabled .navbar-menu-item button,
+body.custom-cursor-enabled .resume-btn,
+body.custom-cursor-enabled .mobile-menu-toggle,
+body.custom-cursor-enabled .mobile-menu-close,
+body.custom-cursor-enabled .mobile-menu-item button,
 body.custom-cursor-enabled .project-card {
   cursor: pointer !important;
 }
