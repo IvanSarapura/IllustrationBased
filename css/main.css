@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+
+/* Base Styles */
+@import "./base/reset.css";
+@import "./base/variables.css";
+@import "./base/typography.css";
+
+/* Layout */
+@import "./layout/header.css";
+@import "./layout/footer.css";
+@import "./layout/grid.css";
+
+/* Components */
+@import "./components/buttons.css";
+@import "./components/cards.css";
+@import "./components/forms.css";
+@import "./components/navigation.css";
+@import "./components/cursor.css";
+
+/* Sections */
+@import "./sections/hero.css";
+@import "./sections/about.css";
+@import "./sections/skills.css";
+@import "./sections/projects.css";
+@import "./sections/contact.css";
+
+/* Utils */
+@import "./utils/animations.css";
+@import "./utils/utilities.css";

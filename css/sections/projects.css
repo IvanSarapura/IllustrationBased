@@ -1,0 +1,43 @@
+/* Projects Section */
+.projects {
+  background-color: var(--background-dark);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  margin: var(--spacing-xl) 0;
+}
+
+.projects-title {
+  font-size: var(--font-size-2xl);
+  text-align: center;
+  color: white;
+}
+
+.projects-title .highlight {
+  font-weight: var(--font-weight-extrabold);
+}
+
+.projects-grid {
+  margin-top: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  padding-bottom: 0.75rem;
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (min-width: 1024px) {
+  .projects {
+    padding: var(--spacing-3xl) var(--spacing-6xl);
+    margin: var(--spacing-3xl) 0;
+  }
+
+  .projects-title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .projects-grid {
+    margin-top: var(--spacing-3xl);
+    gap: var(--spacing-3xl);
+    padding-bottom: var(--spacing-lg);
+  }
+}

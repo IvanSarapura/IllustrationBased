@@ -1,0 +1,218 @@
+/* Header and Navigation */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--background-light);
+  padding: var(--spacing-lg);
+  z-index: var(--z-fixed);
+  transition: box-shadow var(--transition-base);
+}
+
+.navbar.shadow {
+  box-shadow: var(--shadow-md);
+}
+
+.navbar-container {
+  max-width: var(--container-2xl);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
+}
+
+.navbar-logo {
+  height: 2.25rem;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.navbar-logo:hover {
+  transform: scale(1.1);
+}
+
+.navbar-menu {
+  display: none;
+  align-items: center;
+  gap: 1.75rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+.navbar-menu-item {
+  position: relative;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.navbar-menu-item:hover {
+  transform: scale(1.1);
+}
+
+.navbar-menu-item::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width var(--transition-base);
+}
+
+.navbar-menu-item:hover::after {
+  width: 100%;
+}
+
+.navbar-menu-item button {
+  background: none;
+  border: none;
+  font-weight: inherit;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.resume-btn {
+  display: none;
+  position: relative;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-base);
+}
+
+.resume-btn-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--transition-base);
+  transform: translate(4px, 4px);
+  background-color: var(--primary-color);
+}
+
+.resume-btn:hover .resume-btn-bg {
+  transform: translate(0, 0);
+}
+
+.resume-btn-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-light);
+  border: 2px solid var(--primary-color);
+  transition: background-color var(--transition-base);
+}
+
+.resume-btn:hover .resume-btn-border {
+  background-color: var(--primary-color);
+}
+
+.resume-btn-text {
+  position: relative;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: color var(--transition-base);
+}
+
+.resume-btn:hover .resume-btn-text {
+  color: white;
+}
+
+.mobile-menu-toggle {
+  display: block;
+  font-size: var(--font-size-2xl);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.mobile-menu-toggle:hover {
+  transform: scale(1.2);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--background-light);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-100%);
+  transition: transform var(--transition-base);
+  z-index: var(--z-modal);
+}
+
+.mobile-menu.open {
+  transform: translateY(0);
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  font-size: var(--font-size-2xl);
+  cursor: pointer;
+}
+
+.mobile-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: var(--spacing-3xl);
+  margin-top: 7rem;
+  height: 100%;
+  gap: var(--spacing-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.mobile-menu-item {
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.mobile-menu-item:hover {
+  transform: scale(1.1);
+}
+
+.mobile-menu-item button {
+  background: none;
+  border: none;
+  font-weight: inherit;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.mobile-resume-btn {
+  position: relative;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: var(--font-weight-semibold);
+  transition: transform var(--transition-fast);
+}
+
+.mobile-resume-btn:hover {
+  transform: scale(1.1);
+}
+
+@media (min-width: 1024px) {
+  .navbar-container {
+    padding: 0 var(--spacing-6xl);
+  }
+
+  .navbar-menu {
+    display: flex;
+  }
+
+  .resume-btn {
+    display: inline-block;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+}

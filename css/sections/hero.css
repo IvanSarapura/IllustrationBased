@@ -1,0 +1,127 @@
+/* Hero Section */
+.hero {
+  margin-top: 5rem;
+  padding: 2.5rem 0;
+}
+
+.hero-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
+  flex-direction: column-reverse;
+}
+
+.hero-content {
+  width: 100%;
+}
+
+.hero-title {
+  font-size: var(--font-size-2xl);
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing-xl);
+  gap: var(--spacing-sm);
+  white-space: nowrap;
+}
+
+.hero-title h2 {
+  margin: 0;
+}
+
+.hero-title .name {
+  font-weight: var(--font-weight-semibold);
+}
+
+.hero-title .role {
+  font-weight: var(--font-weight-extrabold);
+}
+
+.hero-title .role .developer {
+  color: white;
+  -webkit-text-stroke: 1px var(--primary-color);
+}
+
+.hero-title .location {
+  font-weight: var(--font-weight-normal);
+}
+
+.hero-title .location .india {
+  font-weight: var(--font-weight-extrabold);
+}
+
+.hero-description {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  margin-top: 1.25rem;
+}
+
+.hero-social {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.hero-image {
+  width: 100%;
+}
+
+.hero-image img {
+  height: 100%;
+  width: 100%;
+}
+
+/* Type animation container */
+.typewriter {
+  display: inline-block;
+  font-weight: var(--font-weight-semibold);
+}
+
+.typewriter::after {
+  content: "|";
+  display: inline-block;
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (min-width: 1024px) {
+  .hero-container {
+    padding: 0 var(--spacing-6xl);
+    flex-direction: row;
+  }
+
+  .hero-content {
+    width: 45%;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-5xl);
+    margin-top: 0;
+    gap: 1.25rem;
+  }
+
+  .hero-description {
+    font-size: var(--font-size-base);
+  }
+
+  .hero-social {
+    margin-top: 3.5rem;
+  }
+
+  .hero-image {
+    width: 55%;
+  }
+}
