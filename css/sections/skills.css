@@ -1,6 +1,7 @@
 /* Skills Section */
 .skills {
   margin-top: 0.75rem;
+  margin-bottom: var(--spacing-2xl);
   position: relative;
   z-index: 1;
 }
@@ -38,31 +39,31 @@
   z-index: 2;
 }
 
-/* Experience Section */
-.experience {
+/* Experience Cards Section */
+.experience-cards-section {
   background-color: var(--background-dark);
   width: 100%;
-  margin: var(--spacing-xl) 0;
   padding: var(--spacing-xl) 0;
+  margin-bottom: var(--spacing-2xl);
   position: relative;
   z-index: 2;
   isolation: isolate;
 }
 
-.experience-title {
+.experience-cards-title {
   font-size: var(--font-size-2xl);
   text-align: center;
   color: white;
   padding: 0 var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
 }
 
-.experience-title .highlight {
+.experience-cards-title .highlight {
   font-weight: var(--font-weight-extrabold);
 }
 
 .experience-grid {
   padding: 0 var(--spacing-lg);
-  margin: var(--spacing-xl) 0;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
@@ -71,7 +72,7 @@
 }
 
 /* Ensure experience cards are visible */
-.experience .experience-card {
+.experience-cards-section .experience-card {
   opacity: 1 !important;
   visibility: visible !important;
 }
@@ -86,6 +87,7 @@
 @media (min-width: 1024px) {
   .skills {
     margin-top: var(--spacing-3xl);
+    margin-bottom: var(--spacing-4xl);
   }
 
   .skills-content {
@@ -102,18 +104,17 @@
     row-gap: var(--spacing-2xl);
   }
 
-  .experience {
-    margin: var(--spacing-3xl) 0;
+  .experience-cards-section {
     padding: var(--spacing-3xl) 0;
+    margin-bottom: var(--spacing-4xl);
   }
 
-  .experience-title {
+  .experience-cards-title {
     font-size: var(--font-size-4xl);
-    padding: 0 var(--spacing-6xl);
+    margin-bottom: var(--spacing-3xl);
   }
 
   .experience-grid {
     padding: 0 var(--spacing-6xl);
-    margin-top: var(--spacing-3xl);
   }
 }

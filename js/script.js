@@ -487,7 +487,14 @@ function getCurrentActiveSection() {
 
   // Cache section positions to avoid repeated DOM queries
   if (!cachedSectionPositions) {
-    cachedSectionPositions = ["home", "about", "skills", "projects", "contact"]
+    cachedSectionPositions = [
+      "home",
+      "about",
+      "skills",
+      "experience",
+      "projects",
+      "contact",
+    ]
       .map((id) => {
         const section = document.getElementById(id);
         return section ? { id, top: section.offsetTop } : null;

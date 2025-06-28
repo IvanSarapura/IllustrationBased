@@ -63,6 +63,11 @@
             </button>
           </li>
           <li class="navbar-menu-item">
+            <button class="nav-btn" onclick="scrollToSection('experience')">
+              Experience
+            </button>
+          </li>
+          <li class="navbar-menu-item">
             <button class="nav-btn" onclick="scrollToSection('projects')">
               Projects
             </button>
@@ -130,6 +135,14 @@
           <li class="mobile-menu-item">
             <button
               class="mobile-nav-btn"
+              onclick="scrollToSection('experience')"
+            >
+              Experience
+            </button>
+          </li>
+          <li class="mobile-menu-item">
+            <button
+              class="mobile-nav-btn"
               onclick="scrollToSection('projects')"
             >
               Projects
@@ -172,7 +185,7 @@
             </h2>
             <h2 class="role">
               <span class="font-extrabold">Fullstack</span>
-              <span class="developer text-stroke">Developer</span>
+              <span class="font-extrabold">Developer</span>
             </h2>
             <h2 class="location">
               Based In <span class="india font-extrabold">India.</span>
@@ -263,16 +276,16 @@
           <!-- Skills will be populated by JavaScript -->
         </div>
       </div>
+    </section>
 
-      <!-- Experience Section -->
-      <div class="experience">
-        <h2 class="experience-title animate-on-scroll">
-          My <span class="highlight">Experience</span>
-        </h2>
+    <!-- Experience Cards Section -->
+    <section class="experience-cards-section" id="experience">
+      <h2 class="experience-cards-title animate-on-scroll">
+        My <span class="highlight">Experience</span>
+      </h2>
 
-        <div class="experience-grid" id="experienceGrid">
-          <!-- Experience will be populated by JavaScript -->
-        </div>
+      <div class="experience-grid" id="experienceGrid">
+        <!-- Experience will be populated by JavaScript -->
       </div>
     </section>
 
