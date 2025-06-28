@@ -548,7 +548,7 @@ function renderSkills() {
   skillsGrid.innerHTML = skills
     .map(
       (skill, index) => `
-        <div class="skill-card animate-on-scroll" style="animation-delay: ${
+        <div class="skill-card animate-on-scroll hover-scale" style="animation-delay: ${
           (index + 1) * 0.1
         }s">
             <div class="skill-icon">${skill.icon}</div>
