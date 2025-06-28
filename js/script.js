@@ -444,8 +444,28 @@ function executeScrollToSection(sectionId) {
     return;
   }
 
-  // Calculate target position
-  const offset = 20;
+  // Calculate target position with specific offsets per section
+  let offset = 20; // default offset
+
+  // Specific offsets for each section
+  switch (sectionId) {
+    case "projects":
+      offset = -10; // scroll a bit lower
+      break;
+    case "experience":
+      offset = -10; // scroll a bit lower
+      break;
+    case "skills":
+      offset = 50; // scroll a bit higher
+      break;
+    case "about":
+      offset = 50; // scroll a bit higher
+      break;
+    case "contact":
+      offset = 20; // default
+      break;
+  }
+
   const elementPosition = section.offsetTop;
   const targetPosition = elementPosition - offset;
   const currentPosition = window.pageYOffset;
@@ -497,7 +517,29 @@ function getCurrentActiveSection() {
     ]
       .map((id) => {
         const section = document.getElementById(id);
-        return section ? { id, top: section.offsetTop } : null;
+        if (section) {
+          // Apply same offset logic for consistency
+          let offset = 20;
+          switch (id) {
+            case "projects":
+              offset = -10;
+              break;
+            case "experience":
+              offset = -10;
+              break;
+            case "skills":
+              offset = 50;
+              break;
+            case "about":
+              offset = 50;
+              break;
+            case "contact":
+              offset = 20;
+              break;
+          }
+          return { id, top: section.offsetTop - offset };
+        }
+        return null;
       })
       .filter(Boolean);
   }

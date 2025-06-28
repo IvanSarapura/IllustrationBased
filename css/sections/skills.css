@@ -64,6 +64,7 @@
 
 .experience-grid {
   padding: 0 var(--spacing-lg);
+  padding-bottom: var(--spacing-3xl);
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
@@ -116,5 +117,6 @@
 
   .experience-grid {
     padding: 0 var(--spacing-6xl);
+    padding-bottom: var(--spacing-4xl);
   }
 }
