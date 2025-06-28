@@ -259,7 +259,6 @@
 .hover-scale:hover {
   transform: scale(1.05);
 }
-
 .hover-lift {
   transition: transform var(--transition-base),
     box-shadow var(--transition-base);

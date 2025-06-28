@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <meta name="theme-color" content="#000000" />
 
-    <!-- Open Graph Meta Tags -->
+    <!-- SEO Meta Tags -->
     <meta property="og:title" content="SK | Full Stack Developer Portfolio" />
     <meta
       property="og:description"
@@ -25,8 +25,6 @@
       content="https://sk-illustration-portfolio.netlify.app/"
     />
     <meta property="og:type" content="website" />
-
-    <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="SK | Full Stack Developer Portfolio" />
     <meta
@@ -34,8 +32,6 @@
       content="Explore SK's projects, skills, and experience in web development."
     />
     <meta name="twitter:image" content="assets/preview.png" />
-
-    <!-- Canonical URL -->
     <link
       rel="canonical"
       href="https://sk-illustration-portfolio.netlify.app/"
@@ -108,7 +104,6 @@
         </button>
       </div>
 
-      <!-- Mobile Menu -->
       <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-menu-close" onclick="toggleMobileMenu()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -487,62 +482,5 @@
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
-
-    <!-- Navbar Enhancement Script -->
-    <script>
-      // Add event listeners as backup for better reliability
-      document.addEventListener("DOMContentLoaded", function () {
-        // Backup event listeners for nav buttons
-        const navBtns = document.querySelectorAll(".nav-btn");
-        navBtns.forEach((btn, index) => {
-          const sections = ["about", "skills", "projects", "contact"];
-          btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (window.scrollToSection) {
-              window.scrollToSection(sections[index]);
-            }
-          });
-        });
-
-        // Backup for logo
-        const logo = document.querySelector(".navbar-logo");
-        if (logo) {
-          logo.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (window.scrollToSection) {
-              window.scrollToSection("home");
-            }
-          });
-        }
-
-        // Backup for resume button (desktop)
-        const resumeBtn = document.querySelector(".resume-btn");
-        if (resumeBtn) {
-          resumeBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (window.handleResumeClick) {
-              window.handleResumeClick();
-            }
-          });
-        }
-
-        // Backup for resume button (mobile)
-        const mobileResumeBtn = document.querySelector(
-          ".mobile-resume-btn-element"
-        );
-        if (mobileResumeBtn) {
-          mobileResumeBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (window.handleResumeClick) {
-              window.handleResumeClick();
-            }
-          });
-        }
-      });
-    </script>
   </body>
 </html>

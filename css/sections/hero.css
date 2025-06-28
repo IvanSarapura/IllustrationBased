@@ -37,8 +37,9 @@
 }
 
 .hero-title .role .developer {
-  color: white;
-  -webkit-text-stroke: 1px var(--primary-color);
+  /* Unified design - same as Fullstack */
+  color: inherit;
+  -webkit-text-stroke: none;
 }
 
 .hero-title .location {

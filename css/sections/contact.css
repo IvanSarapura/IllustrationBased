@@ -46,8 +46,7 @@
 }
 
 .contact-heading .talk {
-  color: white;
-  -webkit-text-stroke: 1px var(--primary-color);
+  font-weight: var(--font-weight-extrabold);
 }
 
 .contact-description {
